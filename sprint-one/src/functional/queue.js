@@ -20,8 +20,6 @@ var Queue = function() {
     for (var key in storage) {
       storage[key] = storage[(Number(key) + 1).toString()];
     }
-    delete storage[counter];
-    //debugger;
     return dequeud;
   };
 

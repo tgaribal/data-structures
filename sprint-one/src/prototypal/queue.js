@@ -26,7 +26,6 @@ queueMethods.dequeue = function () {
   for (var key in this.storage) {
     this.storage[key] = this.storage[(Number(key) + 1).toString()];    
   }
-  delete this.storage[this.counter];
   return dequeued;
 };
 
