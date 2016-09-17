@@ -57,7 +57,6 @@ HashTable.prototype.resize = function(limit) {
   var oldStorage = this._storage;
   this._counter = 0;
   this._storage = LimitedArray(limit);
-  console.log(this._storage);
   this._limit = limit;
 
   for (var key in oldStorage) {

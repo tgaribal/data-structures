@@ -57,4 +57,8 @@ describe('binarySearchTree', function() {
     expect(binarySearchTree.contains('john')).to.equal(true);
     expect(binarySearchTree.right.value).to.equal('steven');
   });
+
+  it('should use breadth-first approach to log values', function() {
+    
+  });
 });
