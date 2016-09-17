@@ -1,5 +1,4 @@
 
-
 var HashTable = function() {
   this._limit = 8;
   this._storage = LimitedArray(this._limit);
@@ -19,11 +18,6 @@ HashTable.prototype.insert = function(k, v) {
   }
   this._storage[index].push([k, v]);
   this._counter++;
-<<<<<<< HEAD
-=======
-
-  //resize test to double space and rehash
->>>>>>> b4b6ce20cf957214e84920963485eabd49bb813c
   if (this._counter > this._limit * 0.75) {
     this.resize(this._limit * 2);
   }
@@ -45,34 +39,21 @@ HashTable.prototype.retrieve = function(k) {
 };
 
 HashTable.prototype.remove = function(k) {
-<<<<<<< HEAD
-=======
-  //resize test to halve space and rehash
-  if (this._counter < this._limit * 0.25) {
-    this.resize(this._limit / 2);
-  }
-  
->>>>>>> b4b6ce20cf957214e84920963485eabd49bb813c
   var index = getIndexBelowMaxForKey(k, this._limit);
   for (var i = 0; i < this._storage[index].length; i++) {
-
+    
     if (this._storage[index][i][0] === k) {
       delete this._storage[index][i];
       this._counter--;
     }
   }
-<<<<<<< HEAD
   if (this._counter < this._limit * 0.25) {
     this.resize(this._limit / 2);
   }
-=======
-
->>>>>>> b4b6ce20cf957214e84920963485eabd49bb813c
 };
 
 HashTable.prototype.resize = function(limit) {
   var oldStorage = this._storage;
-<<<<<<< HEAD
   this._counter = 0;
   this._storage = LimitedArray(limit);
   this._limit = limit;
@@ -83,17 +64,6 @@ HashTable.prototype.resize = function(limit) {
       if (bucket[i]) {
         var tuple = bucket[i];
         var index = getIndexBelowMaxForKey(tuple[0], limit);
-=======
-  this._limit = limit;
-  this._counter = 0;
-  this._storage = [];
-
-  for (var key in oldStorage) {
-    for (var i = 0; i < oldStorage[key].length; i++) {
-      if (oldStorage[key][i]) {
-        var tuple = oldStorage[key][i];
-        var index = getIndexBelowMaxForKey(oldStorage[key][i][0], limit);
->>>>>>> b4b6ce20cf957214e84920963485eabd49bb813c
         if (this._storage[index] === undefined) {
           this._storage[index] = [];
         }

@@ -49,6 +49,17 @@ binarySearchTreeMethods.depthFirstLog = function (cb) {
   }
 };
 
+binarySearchTreeMethods.breadthFirstLog = function (cb) {
+  cb(this.value);
+  if (this.left) {
+    cb(this.left.value);
+  }
+  if (this.right) {
+    cb(this.right.value);
+  }
+
+};
+ 
 /*
  * Complexity: What is the time complexity of the above functions?
  */
