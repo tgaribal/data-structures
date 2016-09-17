@@ -7,7 +7,6 @@ var HashTable = function() {
 };
 
 HashTable.prototype.insert = function(k, v) {
-  this._counter++;
   var index = getIndexBelowMaxForKey(k, this._limit);
   if (this._storage[index] === undefined) {
     this._storage[index] = [];
@@ -18,8 +17,10 @@ HashTable.prototype.insert = function(k, v) {
     }
   }
   this._storage[index].push([k, v]);
-  if (this._counter < this._limit * 0.75) {
-    //console.log("limit breached", this._storage);
+  this._counter++;
+
+  //resize test to increase space and redistribute pairs
+  if (this._counter > this._limit * 0.75) {
     this.resize(this._limit * 2);
   }
 };
@@ -38,36 +39,38 @@ HashTable.prototype.retrieve = function(k) {
 };
 
 HashTable.prototype.remove = function(k) {
-  this._counter--;
   var index = getIndexBelowMaxForKey(k, this._limit);
   for (var i = 0; i < this._storage[index].length; i++) {
     
     if (this._storage[index][i][0] === k) {
       delete this._storage[index][i];
+      this._counter--;
     }
   }
 };
 
 HashTable.prototype.resize = function(limit) {
   var oldStorage = this._storage;
-  var newStorage = LimitedArray(limit);
-
-  console.log(newStorage);
+  this._limit = limit;
+  this._counter = 0;
+  this._storage = [];
 
   for (var key in oldStorage) {
-    //console.log(oldStorage[key][0][0]);
     for (var i = 0; i < oldStorage[key].length; i++) {
-      var index = getIndexBelowMaxForKey(oldStorage[key][i][0], limit);
-      if (newStorage[index] === undefined) {
-        newStorage[index] = [];
-      }
-      for (var z = 0; z < newStorage[index].length; z++) {          
-        if (newStorage[index][z][0] === oldStorage[key][i][0]) {
-          newStorage[index][z][1] = oldStorage[key][i][1];
+      if (oldStorage[key][i].length) {
+        var tuple = oldStorage[key][i];
+        var index = getIndexBelowMaxForKey(oldStorage[key][i][0], limit);
+        // console.log(index);
+        if (this._storage[index] === undefined) {
+          this._storage[index] = [];
         }
-      }      
+        this._storage[index].push([tuple[0], tuple[1]]);
+        // console.log(this._storage[index]);
+        console.log(this._storage);
+        // console.log(hashTable._limit);
+      }
     }
-  }s
+  }
 };
 
 
@@ -75,5 +78,3 @@ HashTable.prototype.resize = function(limit) {
 /*
  * Complexity: What is the time complexity of the above functions?
  */
-
-
