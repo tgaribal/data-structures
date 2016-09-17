@@ -39,30 +39,16 @@ binarySearchTreeMethods.contains = function (val) {
   } else {
     return false;
   }
-  //return false;
 };
 
- // var wasFound = false;
- //  if (this.value === val) {
- //    return true;
- //  } else {
- //    if (val < this.value) {
- //      if (wasFound) {
- //        return true;
- //      }
- //      wasFound = this.left.contains(val);
- //    } else {
- //      if (wasFound) {
- //        return true;
- //      }
- //      wasFound = this.right.contains(val);
- //    }
- //  }
- //  //console.log("false");
- //  return wasFound;
-
-binarySearchTreeMethods.depthFirstLog = function () {
-
+binarySearchTreeMethods.depthFirstLog = function (cb) {
+  cb(this.value);
+  if (this.left) {
+    this.left.depthFirstLog(cb);
+  }
+  if (this.right) {
+    this.right.depthFirstLog(cb);
+  }
 };
 
 /*
