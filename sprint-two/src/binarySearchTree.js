@@ -28,13 +28,11 @@ binarySearchTreeMethods.insert = function (v) {
 
 binarySearchTreeMethods.contains = function (val) {
   if (this.value === val) {
-    console.log('true');
     return true;
   } 
   if (this.left && val < this.value) {
     return this.left.contains(val);
   } else if (this.right) {
-    console.log('right');
     return this.right.contains(val);
   } else {
     return false;

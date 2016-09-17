@@ -18,10 +18,10 @@ HashTable.prototype.insert = function(k, v) {
     }
   }
   this._storage[index].push([k, v]);
-  // console.log(this._storage);
-  // if (this._counter > this._limit * 0.75) {
-  //   this.resize(this._limit * 2);
-  // }
+  if (this._counter < this._limit * 0.75) {
+    //console.log("limit breached", this._storage);
+    this.resize(this._limit * 2);
+  }
 };
 
 HashTable.prototype.retrieve = function(k) {
@@ -38,6 +38,7 @@ HashTable.prototype.retrieve = function(k) {
 };
 
 HashTable.prototype.remove = function(k) {
+  this._counter--;
   var index = getIndexBelowMaxForKey(k, this._limit);
   for (var i = 0; i < this._storage[index].length; i++) {
     
@@ -47,25 +48,27 @@ HashTable.prototype.remove = function(k) {
   }
 };
 
-/*
 HashTable.prototype.resize = function(limit) {
-  var newStorage = LimitedArray(limit);
   var oldStorage = this._storage;
+  var newStorage = LimitedArray(limit);
 
-  console.log(oldStorage);
   console.log(newStorage);
 
   for (var key in oldStorage) {
-    console.log("oldStorage outer", oldStorage);
-    if (oldStorage[key] !== undefined) {
-      for (var j = 0; j < oldStorage[key].length; j++) {
-        newStorage.insert(oldStorage[key][j][0], oldStorage[key][j][1]);
+    //console.log(oldStorage[key][0][0]);
+    for (var i = 0; i < oldStorage[key].length; i++) {
+      var index = getIndexBelowMaxForKey(oldStorage[key][i][0], limit);
+      if (newStorage[index] === undefined) {
+        newStorage[index] = [];
       }
+      for (var z = 0; z < newStorage[index].length; z++) {          
+        if (newStorage[index][z][0] === oldStorage[key][i][0]) {
+          newStorage[index][z][1] = oldStorage[key][i][1];
+        }
+      }      
     }
   }
-  console.log(newStorage);
 };
-*/
 
 
 

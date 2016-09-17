@@ -36,4 +36,25 @@ describe('binarySearchTree', function() {
     binarySearchTree.depthFirstLog(func);
     expect(array).to.eql([5, 2, 3]);
   });
+
+  it('should find a value in a BST of any height', function () {
+    binarySearchTree.insert(4);
+    binarySearchTree.insert(6);
+    binarySearchTree.insert(3);
+    binarySearchTree.insert(2);
+    binarySearchTree.insert(1);
+    binarySearchTree.insert(6.5);
+    binarySearchTree.insert(3 * 3);
+    binarySearchTree.insert(10);
+    expect(binarySearchTree.contains(10)).to.equal(true);
+  });
+
+  it('should work with non numeric values', function () {
+    binarySearchTree.insert('steven');
+    binarySearchTree.insert('tyler');
+    binarySearchTree.insert('john');
+    expect(binarySearchTree.contains('michael')).to.equal(false);
+    expect(binarySearchTree.contains('john')).to.equal(true);
+    expect(binarySearchTree.right.value).to.equal('steven');
+  });
 });
