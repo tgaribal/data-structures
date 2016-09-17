@@ -67,7 +67,7 @@ HashTable.prototype.resize = function(limit) {
         }
       }      
     }
-  }
+  }s
 };
 
 
