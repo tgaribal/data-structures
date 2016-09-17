@@ -19,7 +19,7 @@ HashTable.prototype.insert = function(k, v) {
   this._storage[index].push([k, v]);
   this._counter++;
 
-  //resize test to increase space and redistribute pairs
+  //resize test to double space and rehash
   if (this._counter > this._limit * 0.75) {
     this.resize(this._limit * 2);
   }
@@ -39,14 +39,20 @@ HashTable.prototype.retrieve = function(k) {
 };
 
 HashTable.prototype.remove = function(k) {
+  //resize test to halve space and rehash
+  if (this._counter < this._limit * 0.25) {
+    this.resize(this._limit / 2);
+  }
+  
   var index = getIndexBelowMaxForKey(k, this._limit);
   for (var i = 0; i < this._storage[index].length; i++) {
-    
+
     if (this._storage[index][i][0] === k) {
       delete this._storage[index][i];
       this._counter--;
     }
   }
+
 };
 
 HashTable.prototype.resize = function(limit) {
@@ -57,17 +63,14 @@ HashTable.prototype.resize = function(limit) {
 
   for (var key in oldStorage) {
     for (var i = 0; i < oldStorage[key].length; i++) {
-      if (oldStorage[key][i].length) {
+      if (oldStorage[key][i]) {
         var tuple = oldStorage[key][i];
         var index = getIndexBelowMaxForKey(oldStorage[key][i][0], limit);
-        // console.log(index);
         if (this._storage[index] === undefined) {
           this._storage[index] = [];
         }
         this._storage[index].push([tuple[0], tuple[1]]);
-        // console.log(this._storage[index]);
-        console.log(this._storage);
-        // console.log(hashTable._limit);
+        this._counter++;
       }
     }
   }
