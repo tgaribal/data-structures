@@ -59,8 +59,6 @@ describe('binarySearchTree', function() {
   });
 
   it('should use breadth-first approach to log values', function() {
-    var array = [];
-    var func = function(value) { array.push(value); };
     binarySearchTree.insert(2);
     binarySearchTree.insert(10);
     binarySearchTree.insert(4);
@@ -71,7 +69,6 @@ describe('binarySearchTree', function() {
     binarySearchTree.insert(12);
     binarySearchTree.insert(9);
     binarySearchTree.insert(8);
-    binarySearchTree.breadthFirstLog(func);
-    expect(array).to.eql([5, 2, 10, 1, 4, 9, 13, 3, 8, 12, 15]);
+    expect(binarySearchTree.breadthFirstLog()).to.eql([5, 2, 10, 1, 4, 9, 13, 3, 8, 12, 15]);
   });
 });

@@ -35,11 +35,8 @@ treeMethods.contains = function(target) {
 
 treeMethods.removeFromParent = function () {
   var index = this.parent.children.indexOf(this);
-  console.log(index);
   this.parent.children.splice(index, 1);
-  console.log(this.parent.children);
   this.parent = null;
-  console.log(this.parent);
 };
 
 treeMethods.traverse = function (cb) {

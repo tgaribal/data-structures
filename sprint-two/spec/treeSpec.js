@@ -34,7 +34,6 @@ describe('tree', function() {
     tree.traverse( function(node) {
       results.push(node);
     });
-    console.log(results);
     expect(results).to.eql([100, 1, 6, 2, 9, 10, 22, 3, 5]);
   });
 

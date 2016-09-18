@@ -49,15 +49,34 @@ binarySearchTreeMethods.depthFirstLog = function (cb) {
   }
 };
 
-binarySearchTreeMethods.breadthFirstLog = function (cb) {
-  cb(this.value);
-  if (this.left) {
-    cb(this.left.value);
-  }
-  if (this.right) {
-    cb(this.right.value);
-  }
+binarySearchTreeMethods.breadthFirstLog = function () {
+  var results = [this.value];
+  console.log(results);
+  var firstPass = [];
+  firstPass.push(this);
+  console.log(firstPass);
 
+  var nodesAtLevel = function (levelNodes) {
+    nextNodes = [];
+    levelNodes.forEach( function (node) {
+      if (node.left) {
+        results.push(node.left.value);
+        nextNodes.push(node.left);
+      }
+      if (node.right) {
+        results.push(node.right.value);
+        nextNodes.push(node.right);
+      }
+    });
+    if (nextNodes.length === 0) {
+      return;
+    } else {
+      nodesAtLevel(nextNodes);
+    }
+  };
+
+  nodesAtLevel(firstPass);
+  return results;
 };
  
 /*
